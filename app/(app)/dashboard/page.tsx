@@ -1,4 +1,4 @@
-import { SiteList } from '@/app/_components/site-list';
+import { SiteLikedList, SiteList } from '@/app/_components/site-list';
 import { Avatar } from '@/components/avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getUser } from '@/server/actions/user';
@@ -25,7 +25,9 @@ export default async () => {
         <TabsContent value="sites">
           <SiteList />
         </TabsContent>
-        <TabsContent value="likes">Change your password here.</TabsContent>
+        <TabsContent value="likes">
+          <SiteLikedList />
+        </TabsContent>
       </Tabs>
     </section>
   );

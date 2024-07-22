@@ -1,5 +1,6 @@
 import { uploadImage } from "@/lib/upload";
 import type { SiteProps } from "@/types";
+import type { Like } from "@prisma/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 function useSite() {
@@ -33,7 +34,26 @@ function useSite() {
     },
   });
 
-  return { addSite, getAll, searchSite };
+  const getUserLikes = useQuery<Like[]>({
+    queryKey: ["userLikes"],
+    queryFn: () => fetch("/api/user/likes").then((res) => res.json()),
+  });
+
+  const toggleLike = useMutation({
+    mutationFn: async (siteId: string) => {
+      const res = await fetch("/api/user/likes", {
+        method: "POST",
+        body: JSON.stringify({ siteId }),
+      });
+      return await res.json();
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["userLikes"] });
+      qc.invalidateQueries({ queryKey: ["sites"] });
+    },
+  });
+
+  return { addSite, getAll, searchSite, getUserLikes, toggleLike };
 }
 
 export { useSite };

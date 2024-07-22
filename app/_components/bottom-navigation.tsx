@@ -17,7 +17,7 @@ const NavLink = ({ href, icon: Icon, label }: NavLinkProps) => {
     <Link
       href={href}
       className={cn(
-        'flex flex-col items-center justify-center gap-1.5 rounded-md p-2 font-medium text-foreground/75 text-sm duration-150 hover:text-foreground md:hidden',
+        'flex flex-col items-center justify-center gap-1.5 rounded-md p-2 font-medium text-foreground/75 text-sm duration-100 md:hidden',
         isActive && 'text-primary',
       )}
     >

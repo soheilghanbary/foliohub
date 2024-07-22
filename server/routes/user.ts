@@ -19,4 +19,56 @@ export const userRoute = new Hono()
       data: updated,
       msg: "حساب کاربری شما ویرایش شد!",
     });
+  })
+  .get("/likes", async (c) => {
+    const session = await getUserSession();
+    const likes = await db.like.findMany({
+      where: { userId: session?.id },
+      include: { site: true, user: true },
+    });
+
+    return c.json(likes);
+  })
+  .post("/likes", async (c) => {
+    const session = await getUserSession();
+    const { siteId } = await c.req.json();
+
+    try {
+      const existingLike = await db.like.findUnique({
+        where: {
+          userId_siteId: {
+            userId: session?.id!,
+            siteId: siteId,
+          },
+        },
+      });
+
+      if (existingLike) {
+        // If the like already exists, remove it (unlike)
+        await db.like.delete({
+          where: { id: existingLike.id },
+        });
+        return c.json({
+          msg: "سایت از لیست علاقه‌مندی‌های شما حذف شد",
+          action: "unliked",
+        });
+      }
+      const newLike = await db.like.create({
+        data: {
+          userId: session?.id!,
+          siteId: siteId,
+        },
+      });
+      return c.json({
+        data: newLike,
+        msg: "سایت به لیست علاقه‌مندی‌های شما اضافه شد",
+        action: "liked",
+      });
+    } catch (error) {
+      console.error("Error in like/unlike operation:", error);
+      return c.json(
+        { error: "An error occurred while processing your request" },
+        500
+      );
+    }
   });

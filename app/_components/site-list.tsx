@@ -7,6 +7,23 @@ import { useSite } from '@/hooks/use-site';
 import type { SiteProps } from '@/types';
 import { HeartIcon, Link2Icon } from 'lucide-react';
 
+export const SiteLikedList = () => {
+  const { data: sites, isPending } = useSite().getAll;
+  if (isPending)
+    return (
+      <div className="flex h-60 items-center justify-center fill-primary">
+        <LoadingIcon />
+      </div>
+    );
+  return (
+    <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {sites?.map((site) => (
+        <SiteCard key={site.id} {...site} />
+      ))}
+    </div>
+  );
+};
+
 export function SiteList() {
   const { data: sites, isPending } = useSite().getAll;
   if (isPending)
@@ -39,9 +56,7 @@ const SiteCard = (site: SiteProps) => (
         </div>
         <div className="flex items-center justify-end gap-2">
           <p className="hidden font-medium text-foreground/85 text-xs">344</p>
-          <Button variant={'outline'} size={'icon'}>
-            <HeartIcon className="size-4 text-primary" />
-          </Button>
+          <SiteLikeButton siteId={site.id} />
           <Button asChild variant={'outline'} size={'icon'}>
             <a target="_blank" href={site.url} rel="noreferrer">
               <Link2Icon className="size-4" />
@@ -52,3 +67,18 @@ const SiteCard = (site: SiteProps) => (
     </div>
   </div>
 );
+
+const SiteLikeButton = ({ siteId }: { siteId: string }) => {
+  const { mutate, isPending } = useSite().toggleLike;
+  const handleLike = () => mutate(siteId);
+  return (
+    <Button
+      onClick={handleLike}
+      disabled={isPending}
+      variant={'outline'}
+      size={'icon'}
+    >
+      <HeartIcon className="size-4 text-primary" />
+    </Button>
+  );
+};
