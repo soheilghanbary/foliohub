@@ -1,5 +1,6 @@
 'use client';
 import { cn } from '@/lib/utils';
+import type { NavLinkProps } from '@/types';
 import {
   HomeIcon,
   LayoutGridIcon,

@@ -4,6 +4,7 @@ import { LoadingIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useSite } from '@/hooks/use-site';
+import type { SiteProps } from '@/types';
 import { HeartIcon, Link2Icon } from 'lucide-react';
 
 export function SiteList() {
@@ -23,7 +24,7 @@ export function SiteList() {
   );
 }
 
-const SiteCard = (site: any) => (
+const SiteCard = (site: SiteProps) => (
   <div className="rounded-lg border">
     <img className="rounded-t-lg" alt={site.name} src={site.image} />
     <div className="p-3">

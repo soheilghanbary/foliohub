@@ -1,5 +1,5 @@
-import { app } from "@/server";
-import { handle } from "hono/vercel";
+import { app } from '@/server';
+import { handle } from 'hono/vercel';
 
 // handle methods
 export const GET = handle(app);
