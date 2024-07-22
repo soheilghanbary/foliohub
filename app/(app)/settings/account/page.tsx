@@ -1,13 +1,8 @@
 import { BackButton } from '@/app/_components/back-button';
+import { UserForm } from '@/app/_components/user-form';
 import { UserUpload } from '@/app/_components/user-upload';
 
-const getUser = async () => {
-  const res = await fetch('http://localhost:3000/api/user');
-  return await res.json();
-};
-
 export default async () => {
-  const user = await getUser();
   return (
     <section className="mx-auto max-w-md p-4">
       <header className="mb-4 flex items-center gap-4">
@@ -16,7 +11,10 @@ export default async () => {
           ویرایش حساب کاربری
         </h1>
       </header>
-      <UserUpload initialPath={user?.image!} />
+      <div className="space-y-4 pt-2">
+        <UserUpload />
+        <UserForm />
+      </div>
     </section>
   );
 };
