@@ -5,6 +5,7 @@ import {
   BadgeCheckIcon,
   HomeIcon,
   LayoutGridIcon,
+  PieChart,
   SearchIcon,
   SettingsIcon,
 } from 'lucide-react';
@@ -27,7 +28,7 @@ const NavLinks = () => {
     <div className="hidden flex-1 items-center gap-2 md:flex">
       <NavLink href="/" label="خانه" icon={HomeIcon} />
       <NavLink href="/sites" label="سایت ها" icon={LayoutGridIcon} />
-      <NavLink href="/about" label="درباره فولیوهاب" icon={BadgeCheckIcon} />
+      <NavLink href="/sites" label="داشبورد" icon={PieChart} />
       <NavLink href="/settings" label="تنظیمات" icon={SettingsIcon} />
     </div>
   );

@@ -6,7 +6,12 @@ import { useRouter } from 'next/navigation';
 export function BackButton() {
   const router = useRouter();
   return (
-    <Button onClick={() => router.back()} variant={'outline'} size={'icon'}>
+    <Button
+      onClick={() => router.back()}
+      variant={'outline'}
+      size={'icon'}
+      className="rounded-full"
+    >
       <ArrowRightIcon className="size-4" />
     </Button>
   );
