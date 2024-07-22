@@ -36,7 +36,7 @@ const NavLinks = () => {
 export async function Header() {
   const user = await getUserSession();
   return (
-    <header className="sticky top-0 border-border/50 border-b bg-background/85 p-4 backdrop-blur md:p-2">
+    <header className="sticky top-0 border-border/50 border-b bg-background/85 p-4 backdrop-blur">
       <nav className="container mx-auto flex items-center justify-between gap-3">
         <Link href={'/'}>
           <h6 className="font-black">فولیوهاب</h6>

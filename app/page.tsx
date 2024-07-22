@@ -1,3 +1,4 @@
+import { Avatar } from '@/components/avatar';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { siteConfig } from '@/config/site';
@@ -32,16 +33,29 @@ const SiteCard = () => (
     <div>
       <h2 className="font-bold text-lg">وبسایت شخصی مدرن</h2>
       <Separator className="my-2 bg-border/40" />
-      <div className="flex items-center justify-end gap-2">
-        <Button variant={'outline'}>
-          256
-          <HeartIcon className="mr-2 size-4 text-destructive" />
-        </Button>
-        <Button asChild variant={'outline'} size={'icon'}>
-          <a target="_blank" href="https://soheilghanbary.ir" rel="noreferrer">
-            <Link2Icon className="size-4" />
-          </a>
-        </Button>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Avatar
+            src={'https://avatars.githubusercontent.com/u/124599?v=4'}
+            alt=""
+          />
+          <p className="font-medium text-foreground/85 text-sm">سهیل قنبری</p>
+        </div>
+        <div className="flex items-center justify-end gap-2">
+          <Button variant={'outline'}>
+            256
+            <HeartIcon className="mr-2 size-4 text-destructive" />
+          </Button>
+          <Button asChild variant={'outline'} size={'icon'}>
+            <a
+              target="_blank"
+              href="https://soheilghanbary.ir"
+              rel="noreferrer"
+            >
+              <Link2Icon className="size-4" />
+            </a>
+          </Button>
+        </div>
       </div>
     </div>
   </div>
