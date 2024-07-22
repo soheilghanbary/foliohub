@@ -3,7 +3,7 @@ import { currentNow } from '@/lib/utils';
 
 export default () => {
   return (
-    <section className="mx-auto max-w-md space-y-4 p-4 text-muted-foreground">
+    <section className="mx-auto max-w-md space-y-4 p-4">
       <div className="flex flex-col items-center gap-4">
         <h1 className="font-black text-xl">
           درباره پلتفرم <span className="text-primary">{siteConfig.name}</span>
