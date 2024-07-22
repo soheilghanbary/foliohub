@@ -1,10 +1,8 @@
 import { BackButton } from '@/app/_components/back-button';
 import { SignOutButton } from '@/app/_components/signout-button';
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import {
   ArrowLeft,
-  ArrowRightIcon,
   BadgeCheckIcon,
   type LucideIcon,
   UserPenIcon,
@@ -31,11 +29,11 @@ export default () => {
         icon={UserPenIcon}
       />
       <MenuLink
-        href="/settings/account"
+        href="/settings/about"
         label="درباره فولیوهاب"
         icon={BadgeCheckIcon}
       />
-      <MenuLink href="/settings/account" label="پشتیبانی" icon={UsersIcon} />
+      <MenuLink href="/settings/about" label="پشتیبانی" icon={UsersIcon} />
       <Separator className="bg-border/40" />
       <SignOutButton />
     </div>

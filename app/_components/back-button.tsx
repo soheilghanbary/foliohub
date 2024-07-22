@@ -12,7 +12,7 @@ export function BackButton() {
       size={'icon'}
       className="rounded-full"
     >
-      <ArrowRightIcon className="size-4" />
+      <ArrowRightIcon className="size-5" />
     </Button>
   );
 }
