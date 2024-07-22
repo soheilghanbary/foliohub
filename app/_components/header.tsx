@@ -38,8 +38,8 @@ export async function Header() {
   return (
     <header className="sticky top-0 border-border/50 border-b bg-background/85 p-4 backdrop-blur">
       <nav className="container mx-auto flex items-center justify-between gap-3">
-        <Link href={'/'}>
-          <h6 className="font-black">فولیوهاب</h6>
+        <Link href={'/'} className="font-black text-primary">
+          <h6>فولیوهاب</h6>
         </Link>
         <NavLinks />
         <div className="flex items-center justify-end gap-4">
