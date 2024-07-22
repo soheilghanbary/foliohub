@@ -1,9 +1,13 @@
-import { Hono } from "hono"
+import { Hono } from "hono";
+import { userRoute } from "./routes/user";
 
-export const app = new Hono().basePath('/api')
+export const app = new Hono().basePath("/api");
 
-app.get('/hello', (c) => {
+// rotues
+app.route("/user", userRoute);
+
+app.get("/hello", (c) => {
   return c.json({
-    message: 'Hello Next.js!',
-  })
-})
+    message: "Hello Next.js!",
+  });
+});

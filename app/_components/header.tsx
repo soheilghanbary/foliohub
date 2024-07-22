@@ -1,39 +1,42 @@
-import { Avatar } from '@/components/avatar';
 import { ModeToggle } from '@/components/mode-toggle';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
 import { getUserSession } from '@/server/lib/auth';
-import { ChartPieIcon, SettingsIcon } from 'lucide-react';
+import {
+  BadgeCheckIcon,
+  HomeIcon,
+  LayoutGridIcon,
+  type LucideIcon,
+  SearchIcon,
+  SettingsIcon,
+  User2Icon,
+  UserIcon,
+} from 'lucide-react';
 import Link from 'next/link';
 import { LoginModal } from './login-modal';
 
+type NavLinkProps = {
+  href: string;
+  icon: LucideIcon;
+  label: string;
+};
+
+const NavLink = ({ href, icon: Icon, label }: NavLinkProps) => (
+  <Link
+    href={href}
+    className="flex items-center rounded-md px-3 py-2 font-medium text-foreground/75 text-sm duration-150 hover:bg-muted/60 hover:text-foreground"
+  >
+    <Icon className="ml-2 size-4" />
+    {label}
+  </Link>
+);
+
 const NavLinks = () => {
   return (
-    <div className="flex flex-1 items-center">
-      <Link
-        href={'/'}
-        className="rounded-md px-4 py-2 font-medium text-foreground/75 text-sm duration-150 hover:bg-muted/40"
-      >
-        صفحه اصلی
-      </Link>
-      <Link
-        href={'/sites'}
-        className="rounded-md px-4 py-2 font-medium text-foreground/75 text-sm duration-150 hover:bg-muted/40"
-      >
-        سایت ها
-      </Link>
-      <Link
-        href={'/about'}
-        className="rounded-md px-4 py-2 text-foreground/75 hover:bg-muted/40"
-      >
-        درباره فولیوهاب
-      </Link>
+    <div className="flex flex-1 items-center gap-2">
+      <NavLink href="/" label="خانه" icon={HomeIcon} />
+      <NavLink href="/sites" label="سایت ها" icon={LayoutGridIcon} />
+      <NavLink href="/about" label="درباره فولیوهاب" icon={BadgeCheckIcon} />
+      <NavLink href="/settings" label="تنظیمات" icon={SettingsIcon} />
     </div>
   );
 };
@@ -42,34 +45,26 @@ export async function Header() {
   const user = await getUserSession();
   return (
     <header className="sticky top-0 border-border/50 border-b bg-background/75 p-2 backdrop-blur-sm">
-      <nav className="container mx-auto flex items-center justify-between gap-4 p-0">
+      <nav className="container mx-auto flex items-center justify-between gap-3">
         <Link href={'/'}>
           <h6 className="font-black">فولیوهاب</h6>
         </Link>
         <NavLinks />
+        <Button className="rounded-full" variant={'outline'} size={'icon'}>
+          <SearchIcon className="size-4" />
+        </Button>
         <ModeToggle />
         {user ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Avatar src={user.image!} alt={user.name!} />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link href={'/dashboard'}>
-                  <ChartPieIcon className="ml-2 size-4" />
-                  داشبورد
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href={'/settings'}>
-                  <SettingsIcon className="ml-2 size-4" />
-                  تنظیمات
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Button
+            asChild
+            variant={'outline'}
+            size={'icon'}
+            className="rounded-full"
+          >
+            <Link href={'/dashboard'}>
+              <User2Icon className="size-4" />
+            </Link>
+          </Button>
         ) : (
           <LoginModal />
         )}

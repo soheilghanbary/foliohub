@@ -80,14 +80,17 @@ export function LoginModal() {
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Edit profile</DrawerTitle>
+          <DrawerTitle>ورود به حساب کاربری</DrawerTitle>
           <DrawerDescription>
-            Make changes to your profile here. Click save when you're done.
+            برای دسترسی به داشبورد وارد حساب کاربری خود شوید
           </DrawerDescription>
         </DrawerHeader>
+        <section className="p-4">
+          <OAuth />
+        </section>
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">انصراف</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
