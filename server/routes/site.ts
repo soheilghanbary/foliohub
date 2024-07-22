@@ -5,18 +5,19 @@ import { getUserSession } from "../lib/auth";
 export const siteRoute = new Hono()
   .get("/search/:q", async (c) => {
     const q = c.req.param("q");
-    console.log(q);
     const sites = await db.site.findMany({
       where: {
-        AND: [
+        OR: [
           {
             name: {
               contains: q,
+              mode: "insensitive",
             },
           },
           {
             url: {
               contains: q,
+              mode: "insensitive",
             },
           },
         ],

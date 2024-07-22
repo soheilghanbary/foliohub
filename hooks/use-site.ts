@@ -26,7 +26,14 @@ function useSite() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["sites"] }),
   });
 
-  return { addSite, getAll };
+  const searchSite = useMutation({
+    mutationFn: async (q: string) => {
+      const res = await fetch(`/api/sites/search/${q}`);
+      return await res.json();
+    },
+  });
+
+  return { addSite, getAll, searchSite };
 }
 
 export { useSite };
