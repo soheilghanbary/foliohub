@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  // url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
 }
 
 model User {
@@ -14,7 +15,22 @@ model User {
   email     String   @unique
   image     String
   bio       String   @default("")
+  updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
+  sites     Site[]
 
   @@index([name])
+}
+
+model Site {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  image     String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([name, url])
 }

@@ -19,14 +19,22 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
+import { Label } from '@/components/ui/label';
 import { useMediaQuery } from '@/hooks/use-media-query';
-import { cn } from '@/lib/utils';
+import { useSite } from '@/hooks/use-site';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { BadgePlusIcon, UploadCloudIcon } from 'lucide-react';
 import * as React from 'react';
+import { useDropzone } from 'react-dropzone';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
 export function NewSiteModal() {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery('(min-width: 768px)');
+
+  const onClose = () => setOpen(false);
 
   if (isDesktop) {
     return (
@@ -44,7 +52,7 @@ export function NewSiteModal() {
               ایجاد سایت جدید و افزودن به لیست سایت ها.
             </DialogDescription>
           </DialogHeader>
-          <ProfileForm />
+          <SiteForm onClose={onClose} />
         </DialogContent>
       </Dialog>
     );
@@ -65,7 +73,7 @@ export function NewSiteModal() {
             ایجاد سایت جدید و افزودن به لیست سایت ها.
           </DrawerDescription>
         </DrawerHeader>
-        <ProfileForm className="px-4" />
+        <SiteForm onClose={onClose} />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">انصراف</Button>
@@ -76,17 +84,78 @@ export function NewSiteModal() {
   );
 }
 
-function ProfileForm({ className }: React.ComponentProps<'form'>) {
+const siteSchema = z.object({
+  name: z.string(),
+  url: z.string().url(),
+});
+
+type SiteSchema = z.infer<typeof siteSchema>;
+
+function SiteForm({ onClose }: { onClose: () => void }) {
+  const [file, setFile] = React.useState<File | any>();
+  const { register, handleSubmit, setValue } = useForm<SiteSchema>({
+    resolver: zodResolver(siteSchema),
+    defaultValues: {
+      name: '',
+      url: '',
+    },
+  });
+  const onDrop = React.useCallback((acceptedFiles: File[]) => {
+    if (!acceptedFiles.length) return;
+    setFile(acceptedFiles[0]);
+  }, []);
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    multiple: false,
+  });
+
+  const { mutateAsync, isPending } = useSite().addSite;
+
+  const onSubmit = handleSubmit(async (data) => {
+    await mutateAsync({ ...data, file });
+    toast.success('سایت با موفقیت افزوده شد.');
+    onClose();
+  });
+
   return (
-    <form className={cn('grid items-start gap-4', className)}>
-      <div className="flex h-48 w-full flex-col items-center justify-center gap-4 rounded-md border shadow-sm duration-150 hover:bg-muted/40 active:scale-95">
-        <UploadCloudIcon />
-        <p className="text-center font-medium text-sm">آپلود عکس از وبسایت</p>
+    <form onSubmit={onSubmit} className={'grid items-start gap-4 px-4 md:px-0'}>
+      <Label>تصویر وبسایت</Label>
+      {file ? (
+        <div
+          {...getRootProps()}
+          className="flex h-56 w-full flex-col items-center justify-center gap-4 rounded-md border shadow-sm duration-150 hover:bg-muted/40 active:scale-95"
+        >
+          <img
+            src={URL.createObjectURL(file)}
+            alt={file.name}
+            className="size-full rounded-[inherit] object-contain"
+          />
+        </div>
+      ) : (
+        <div
+          {...getRootProps()}
+          className="flex h-56 w-full flex-col items-center justify-center gap-4 rounded-md border shadow-sm duration-150 hover:bg-muted/40 active:scale-95"
+        >
+          <input type="hidden" {...getInputProps()} />
+          <UploadCloudIcon />
+          <p className="text-center font-medium text-sm">آپلود عکس از وبسایت</p>
+        </div>
+      )}
+      <TextField label="نام وبسایت" {...register('name')} />
+      <TextField label="آدرس وبسایت" {...register('url')} />
+      <div className="flex items-center gap-4">
+        <Button disabled={isPending} type="submit" className="w-fit">
+          افزودن
+        </Button>
+        <Button
+          onClick={onClose}
+          variant={'secondary'}
+          type="submit"
+          className="w-fit"
+        >
+          انصراف
+        </Button>
       </div>
-      <TextField label="نام وبسایت" />
-      <TextField label="دسته بندی" />
-      <TextField label="آدرس وبسایت" />
-      <Button>افزودن</Button>
     </form>
   );
 }

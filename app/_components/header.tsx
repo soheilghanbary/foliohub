@@ -2,7 +2,6 @@ import { ModeToggle } from '@/components/mode-toggle';
 import { Button } from '@/components/ui/button';
 import { getUserSession } from '@/server/lib/auth';
 import {
-  BadgeCheckIcon,
   HomeIcon,
   LayoutGridIcon,
   PieChart,
@@ -28,7 +27,7 @@ const NavLinks = () => {
     <div className="hidden flex-1 items-center gap-2 md:flex">
       <NavLink href="/" label="خانه" icon={HomeIcon} />
       <NavLink href="/sites" label="سایت ها" icon={LayoutGridIcon} />
-      <NavLink href="/sites" label="داشبورد" icon={PieChart} />
+      <NavLink href="/dashboard" label="داشبورد" icon={PieChart} />
       <NavLink href="/settings" label="تنظیمات" icon={SettingsIcon} />
     </div>
   );
@@ -37,7 +36,7 @@ const NavLinks = () => {
 export async function Header() {
   const user = await getUserSession();
   return (
-    <header className="sticky top-0 border-border/50 border-b bg-background/85 p-4 backdrop-blur">
+    <header className="sticky top-0 z-50 border-border/50 border-b bg-background/85 p-4 backdrop-blur">
       <nav className="container mx-auto flex items-center justify-between gap-3">
         <Link href={'/'} className="font-black text-primary">
           <h6>فولیوهاب</h6>

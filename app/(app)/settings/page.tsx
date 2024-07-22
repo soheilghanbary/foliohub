@@ -45,7 +45,7 @@ export default () => {
 const MenuLink = ({ href, icon: Icon, label }: MenuLink) => (
   <Link
     href={href}
-    className="flex items-center gap-3 rounded-md p-3 text-foreground/75 duration-150 hover:bg-muted hover:text-foreground dark:hover:bg-muted/40"
+    className="flex items-center gap-3 rounded-md p-3 text-foreground/75 duration-150 hover:bg-muted/50 hover:text-foreground dark:hover:bg-muted/40"
   >
     <Icon className="size-5" />
     <p className="flex-1 font-medium text-sm">{label}</p>
