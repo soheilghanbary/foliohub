@@ -36,6 +36,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             attribute="class"
             enableColorScheme
             defaultTheme="light"
+            disableTransitionOnChange
           >
             <Header />
             <main className="container pb-16 md:pb-0">{children}</main>

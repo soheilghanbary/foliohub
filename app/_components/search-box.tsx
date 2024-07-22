@@ -128,7 +128,10 @@ function SearchForm({ className }: React.ComponentProps<'form'>) {
               key={site.id}
               className="flex items-center justify-between rounded-md bg-muted/30 p-2"
             >
-              <p>{site.name}</p>
+              <div>
+                <p>{site.name}</p>
+                <p className="text-foreground/85 text-xs">{site.url}</p>
+              </div>
               <Button asChild variant={'outline'} size={'icon'}>
                 <a target="_blank" href={site.url} rel="noreferrer">
                   <Link2Icon className="size-4" />

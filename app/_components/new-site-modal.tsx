@@ -143,19 +143,9 @@ function SiteForm({ onClose }: { onClose: () => void }) {
       )}
       <TextField label="نام وبسایت" {...register('name')} />
       <TextField label="آدرس وبسایت" {...register('url')} />
-      <div className="flex items-center gap-4">
-        <Button disabled={isPending} type="submit" className="w-fit">
-          افزودن
-        </Button>
-        <Button
-          onClick={onClose}
-          variant={'secondary'}
-          type="submit"
-          className="w-fit"
-        >
-          انصراف
-        </Button>
-      </div>
+      <Button disabled={isPending} type="submit" className="w-fit">
+        افزودن
+      </Button>
     </form>
   );
 }
