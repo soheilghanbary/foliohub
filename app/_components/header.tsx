@@ -46,8 +46,7 @@ export async function Header() {
         <Link href={'/'}>
           <h6 className="font-black">فولیوهاب</h6>
         </Link>
-        {/* <NavLinks /> */}
-        <div className="flex-1" />
+        <NavLinks />
         <ModeToggle />
         {user ? (
           <DropdownMenu>
