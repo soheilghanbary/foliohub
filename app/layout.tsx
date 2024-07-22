@@ -6,6 +6,7 @@ import { ToastProvider } from '@/components/providers/toast-provider';
 import { siteConfig } from '@/config/site';
 import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
+import { Header } from './_components/header';
 
 export const metadata: Metadata = {
   title: {
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             enableColorScheme
             defaultTheme="light"
           >
+            <Header />
             <main className="container">{children}</main>
             <ToastProvider />
           </ThemeProvider>
