@@ -1,11 +1,15 @@
 import { uploadImage } from "@/lib/upload";
-import type { Site } from "@prisma/client";
+import type { Site, User } from "@prisma/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+type SiteProps = Site & {
+  user: User;
+};
 
 function useSite() {
   const qc = useQueryClient();
 
-  const getAll = useQuery<Site[]>({
+  const getAll = useQuery<SiteProps[]>({
     queryKey: ["sites"],
     queryFn: async () => {
       const res = await fetch("/api/sites");

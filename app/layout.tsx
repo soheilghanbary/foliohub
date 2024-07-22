@@ -38,7 +38,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             defaultTheme="light"
           >
             <Header />
-            <main className="container">{children}</main>
+            <main className="container pb-16 md:pb-0">{children}</main>
             <BottomNavigation />
             <ToastProvider />
           </ThemeProvider>

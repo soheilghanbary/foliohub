@@ -4,7 +4,9 @@ import { getUserSession } from "../lib/auth";
 
 export const siteRoute = new Hono()
   .get("/", async (c) => {
-    const sites = await db.site.findMany();
+    const sites = await db.site.findMany({
+      include: { user: true },
+    });
     return c.json(sites);
   })
   .post("/", async (c) => {
