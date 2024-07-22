@@ -15,6 +15,7 @@ export function Avatar(props: ImageProps) {
     >
       <Image
         fill
+        draggable={false}
         {...props}
         className={cn(
           'aspect-square size-full object-cover duration-300',

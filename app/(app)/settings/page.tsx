@@ -1,3 +1,4 @@
+import { BackButton } from '@/app/_components/back-button';
 import { SignOutButton } from '@/app/_components/signout-button';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -21,10 +22,8 @@ export default () => {
   return (
     <div className="mx-auto grid max-w-md gap-2 p-4">
       <header className="mb-4 flex items-center gap-4">
-        <Button variant={'outline'} size={'icon'}>
-          <ArrowRightIcon className="size-4" />
-        </Button>
-        <h1 className="font-extrabold text-foreground text-xl">تنظیمات</h1>
+        <BackButton />
+        <h1 className="font-bold text-foreground text-xl">تنظیمات</h1>
       </header>
       <MenuLink
         href="/settings/account"
