@@ -9,12 +9,9 @@ type SiteProps = Site & {
 function useSite() {
   const qc = useQueryClient();
 
-  const getAll = useQuery<SiteProps[]>({
+  const getAll = useQuery<any[]>({
     queryKey: ["sites"],
-    queryFn: async () => {
-      const res = await fetch("/api/sites");
-      return await res.json();
-    },
+    queryFn: () => fetch("/api/sites").then((res) => res.json()),
   });
 
   const addSite = useMutation({

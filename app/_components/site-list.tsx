@@ -4,8 +4,7 @@ import { LoadingIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useSite } from '@/hooks/use-site';
-import type { Site } from '@prisma/client';
-import { FlameIcon, HeartIcon, HeartPulseIcon, Link2Icon } from 'lucide-react';
+import { HeartIcon, Link2Icon } from 'lucide-react';
 
 export function SiteList() {
   const { data: sites, isPending } = useSite().getAll;
@@ -24,7 +23,7 @@ export function SiteList() {
   );
 }
 
-const SiteCard = (site: Site) => (
+const SiteCard = (site: any) => (
   <div className="rounded-lg border">
     <img className="rounded-t-lg" alt={site.name} src={site.image} />
     <div className="p-3">
